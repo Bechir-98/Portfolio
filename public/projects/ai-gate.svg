@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="glow" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#123a44" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0a0f16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f16"/>
+  <rect width="800" height="500" fill="url(#glow)"/>
+  <g transform="translate(180 250)">
+    <path d="M0 -130 L90 -95 L90 25 L0 70 L-90 25 L-90 -95 Z" fill="none" stroke="#3fd7e4" stroke-width="3"/>
+    <path d="M0 -130 L90 -95 L90 25 L0 70 L-90 25 L-90 -95 Z" fill="none" stroke="#3fd7e4" stroke-width="12" opacity="0.06"/>
+    <path d="M-55 -60 L55 -60" stroke="#3fd7e4" stroke-width="2" opacity="0.5"/>
+    <path d="M-45 -45 L45 -45" stroke="#3fd7e4" stroke-width="2" opacity="0.5"/>
+    <rect x="-34" y="-34" width="68" height="68" rx="8" fill="#0a0f16" stroke="#8ce9f5" stroke-width="2"/>
+    <rect x="-22" y="-22" width="44" height="44" rx="4" fill="none" stroke="#e8edf3" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="0" r="10" fill="#3fd7e4"/>
+    <path d="M-60 -90 l14 -26 14 26 z" fill="#8ce9f5"/>
+  </g>
+  <g transform="translate(560 250)">
+    <rect x="-150" y="-40" width="120" height="80" rx="8" fill="none" stroke="#94a0b0" stroke-width="2"/>
+    <rect x="-20" y="-40" width="120" height="80" rx="8" fill="none" stroke="#e8edf3" stroke-width="2"/>
+    <rect x="-20" y="-28" width="88" height="12" rx="2" fill="#3fd7e4"/>
+    <rect x="-20" y="-8" width="100" height="12" rx="2" fill="#5c6a7a"/>
+    <rect x="-20" y="12" width="70" height="12" rx="2" fill="#8ce9f5"/>
+  </g>
+  <g transform="translate(412 250)">
+    <rect x="8" y="-26" width="110" height="14" fill="none" stroke="#3fd7e4" stroke-width="2"/>
+    <rect x="8" y="12" width="110" height="14" fill="none" stroke="#3fd7e4" stroke-width="2"/>
+    <text x="132" y="6" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="2" fill="#5c6a7a">TOKEN</text>
+    <text x="132" y="44" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="2" fill="#5c6a7a">VAULT</text>
+    <path d="M40 -19 L140 -19 L140 19 L40 19" fill="none" stroke="#8ce9f5" stroke-width="1.5" opacity="0.6"/>
+  </g>
+  <rect x="60" y="420" width="680" height="1" fill="#3fd7e4" opacity="0.25"/>
+  <text x="700" y="460" text-anchor="end" font-family="monospace" font-size="14" letter-spacing="3" fill="#5c6a7a">SCREENSHOT PLACEHOLDER</text>
+</svg>

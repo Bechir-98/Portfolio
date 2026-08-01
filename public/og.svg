@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <radialGradient id="glow" cx="82%" cy="32%" r="70%">
+      <stop offset="0%" stop-color="#123a44" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#05080c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#05080c"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="90" y="120" width="90" height="6" fill="#3fd7e4"/>
+  <text x="90" y="280" font-family="'Space Grotesk', sans-serif" font-size="84" font-weight="700" fill="#e8edf3">Mohamed Bechir Chemam</text>
+  <text x="90" y="348" font-family="'Inter', sans-serif" font-size="30" fill="#94a0b0">Software Engineer · AI &amp; Full-Stack · Tunis</text>
+  <circle cx="980" cy="190" r="46" fill="#e8edf3"/>
+  <ellipse cx="980" cy="190" rx="92" ry="40" stroke="#3fd7e4" stroke-width="4" transform="rotate(-24 980 190)"/>
+  <circle cx="1066" cy="118" r="10" fill="#3fd7e4"/>
+  <text x="90" y="540" font-family="monospace" font-size="20" letter-spacing="4" fill="#5c6a7a">BECHIRCHEMAM.DEV</text>
+  <rect x="90" y="480" width="60" height="4" fill="#3fd7e4"/>
+</svg>
