@@ -1,8 +1,8 @@
 import emailjs from '@emailjs/browser'
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_RECEIVERID
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATEID
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLICKEY
 
 interface ContactMessage {
   name: string

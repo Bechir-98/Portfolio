@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode
@@ -22,13 +23,21 @@ export function Button({
   variant = 'primary',
   size = 'md',
   className = '',
+  href,
   ...rest
 }: ButtonProps) {
+  const baseClasses = `inline-flex items-center justify-center gap-2 rounded-md transition-colors ${variants[variant]} ${sizes[size]} ${className}`
+
+  if (href && (href.startsWith('/') || href.startsWith('#'))) {
+    return (
+      <Link to={href} className={baseClasses} {...(rest as any)}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
-    <a
-      className={`inline-flex items-center justify-center gap-2 rounded-md transition-colors ${variants[variant]} ${sizes[size]} ${className}`}
-      {...rest}
-    >
+    <a href={href} className={baseClasses} {...rest}>
       {children}
     </a>
   )

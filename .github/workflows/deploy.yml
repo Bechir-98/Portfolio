@@ -35,6 +35,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_EMAILJS_RECEIVERID: ${{ secrets.VITE_EMAILJS_RECEIVERID }}
+          VITE_EMAILJS_TEMPLATEID: ${{ secrets.VITE_EMAILJS_TEMPLATEID }}
+          VITE_EMAILJS_PUBLICKEY: ${{ secrets.VITE_EMAILJS_PUBLICKEY }}
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
