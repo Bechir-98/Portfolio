@@ -21,17 +21,22 @@ const NotFoundPage = lazy(() =>
   })),
 )
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      element: <SiteLayout />,
+      children: [
+        { path: '/', element: <HomePage /> },
+        { path: '/projects/:id', element: <ProjectDetailPage /> },
+        { path: '/about', element: <AboutPage /> },
+        { path: '*', element: <NotFoundPage /> },
+      ],
+    },
+  ],
   {
-    element: <SiteLayout />,
-    children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/projects/:id', element: <ProjectDetailPage /> },
-      { path: '/about', element: <AboutPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-])
+    basename: import.meta.env.BASE_URL,
+  }
+)
 
 function App() {
   return <RouterProvider router={router} />
