@@ -20,7 +20,6 @@ npm run build
 npm run preview
 ```
 
-Build locally — do **not** run `npm run build` on a 1 GB RAM VPS.
 
 ## Deploy to VPS (Nginx)
 
