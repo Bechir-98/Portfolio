@@ -44,6 +44,8 @@ export function Gallery({ images, title }: GalleryProps) {
             <img
               src={src}
               alt={`${title} demo ${i + 1}`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
               className="aspect-video w-full object-contain"
             />
             <span className="pointer-events-none absolute bottom-4 left-4 rounded-md bg-ink/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-paper backdrop-blur-sm">
