@@ -43,6 +43,26 @@ export function AboutPage() {
         </Container>
       </section>
 
+      <section className="pb-12">
+        <Container size="narrow">
+          <Heading variant="label">Education</Heading>
+          <ul className="mt-4 divide-y divide-paper/5 rounded-lg border border-paper/10 bg-ink-soft">
+            {(profile.education ?? []).map((item) => (
+              <li key={item.school} className="px-4 py-3">
+                <div className="flex items-baseline justify-between gap-4 text-sm text-paper">
+                  <span className="font-medium">{item.school}</span>
+                  <span className="shrink-0 font-mono text-[11px] text-muted">{item.dates}</span>
+                </div>
+                <div className="mt-1 flex items-baseline justify-between gap-4 text-sm text-paper-dim">
+                  <span>{item.degree}</span>
+                  <span className="shrink-0 font-mono text-[11px] text-muted">{item.location}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
       <section className="pb-24">
         <Container size="narrow">
           <Heading variant="label">Quick facts</Heading>

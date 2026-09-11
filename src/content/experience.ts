@@ -9,6 +9,18 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
+    id: 'ats-dev',
+    title: 'AI Security & Data Privacy Engineering Intern',
+    company: 'ATS Dev',
+    location: 'Tunis, Tunisia',
+    dates: 'Summer 2026',
+    highlights: [
+      'Designed and built an internal OpenAI-API-compatible AI security gateway, the company entry point for LLM requests through privacy guardrails.',
+      'Engineered reversible PII anonymization with an NLP pipeline (GLiNER, spaCy): entity detection, token replacement, and a secure local vault for de-anonymizing responses.',
+      'Owned the full stack: FastAPI backend with API-key auth, request routing and audit logging, plus a React dashboard for flagged requests.',
+    ],
+  },
+  {
     id: 'cybersqool',
     title: 'Software Engineer (Part-time)',
     company: 'CyberSqool',

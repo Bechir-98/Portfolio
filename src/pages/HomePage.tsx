@@ -1,7 +1,6 @@
 import { Hero } from '../components/sections/Hero'
 import { About } from '../components/sections/About'
 import { Now } from '../components/sections/Now'
-import { Featured } from '../components/sections/Featured'
 import { Projects } from '../components/sections/Projects'
 import { Achievements } from '../components/sections/Achievements'
 import { Experience } from '../components/sections/Experience'
@@ -14,7 +13,6 @@ export function HomePage() {
       <Hero />
       <About />
       <Now />
-      <Featured />
       <Projects />
       <Achievements />
       <Experience />

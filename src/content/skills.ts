@@ -8,7 +8,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'languages',
     label: 'Languages',
-    skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C++'],
+    skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C++', 'C'],
   },
   {
     id: 'web',
@@ -21,6 +21,7 @@ export const skillGroups: SkillGroup[] = [
       'Node.js',
       'Laravel',
       'REST APIs',
+      'SQLAlchemy',
       'HTML',
       'CSS',
     ],
@@ -28,7 +29,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'databases',
     label: 'Databases',
-    skills: ['PostgreSQL', 'MySQL', 'SQL'],
+    skills: ['PostgreSQL', 'pgvector', 'MySQL', 'SQL', 'Alembic'],
   },
   {
     id: 'ai',
@@ -37,7 +38,15 @@ export const skillGroups: SkillGroup[] = [
       'PyTorch',
       'Reinforcement Learning',
       'NLP',
+      'spaCy',
       'RAG',
+      'Vector Search',
+      'Embeddings',
+      'LangGraph',
+      'LLM Agents',
+      'LLMOps',
+      'LLM Security',
+      'Streamlit',
       'Generative AI APIs',
       'n8n',
     ],

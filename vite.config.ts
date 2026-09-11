@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { projectImagesPlugin } from './vite-plugin-project-images.js'
 
 export default defineConfig({
   base: '/Portfolio/',
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), projectImagesPlugin()],
   build: {
     chunkSizeWarningLimit: 700,
     rollupOptions: {

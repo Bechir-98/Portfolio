@@ -28,7 +28,10 @@ export function Button({
 }: ButtonProps) {
   const baseClasses = `inline-flex items-center justify-center gap-2 rounded-md transition-colors ${variants[variant]} ${sizes[size]} ${className}`
 
-  if (href && (href.startsWith('/') || href.startsWith('#'))) {
+  const isFile = !!href && /\.[A-Za-z0-9]+$/.test(href.split(/[?#]/)[0])
+  const isDownload = rest.download !== undefined && rest.download !== false
+
+  if (href && (href.startsWith('/') || href.startsWith('#')) && !isFile && !isDownload) {
     return (
       <Link to={href} className={baseClasses} {...(rest as any)}>
         {children}

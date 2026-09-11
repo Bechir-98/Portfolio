@@ -22,7 +22,7 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
             src={project.image}
             alt={`${project.title} screenshot`}
             loading="lazy"
-            className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <span className="absolute right-3 top-3 rounded-md border border-paper/20 bg-ink/70 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-paper backdrop-blur-sm">
             {project.year}

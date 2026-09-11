@@ -1,4 +1,4 @@
-import { asset } from '../lib/paths'
+import { attachProjectMedia } from '../lib/projectImages'
 
 export type ProjectCategory = 'full-stack' | 'ai' | 'hackathon'
 
@@ -25,10 +25,9 @@ export interface Project {
   liveUrl?: string
   image?: string
   gallery?: string[]
-  featured?: boolean
 }
 
-export const projects: Project[] = [
+const projectData = [
   {
     id: 'ma-federation',
     title: 'MaFederation',
@@ -62,52 +61,42 @@ export const projects: Project[] = [
         url: 'https://github.com/Bechir-98/MaFederation',
       },
     ],
-    image: asset('/projects/ma-federation.svg'),
-    gallery: [
-      asset('/projects/ma-federation/demo-1.svg'),
-      asset('/projects/ma-federation/demo-2.svg'),
-      asset('/projects/ma-federation/demo-3.svg'),
-    ],
   },
   {
     id: 'wheel-match',
     title: 'Wheel Match',
-    subtitle: 'Medical Equipment Recommendation Platform',
-    tagline: 'Matching patients to the right wheelchair, one RAG query at a time.',
+    subtitle: 'AI-Matched Wheelchair Selection for Patients & Vendors',
+    tagline:
+      "Rule-first wheelchair ranking with an optional SLM re-rank. The patient's choice is final.",
     category: 'ai',
     year: '2025',
     role: 'AI Engineer',
     timeline: '2025 · semester project',
     challenge:
-      'Choosing a wheelchair is a medical decision, yet patients compare specs by hand while clinicians and vendors each live in their own silo.',
+      'Choosing a wheelchair is a medical decision, yet patients compare specs by hand while vendors manage stock blindly. Matching has to be explainable, in-stock, and final, with no clinician in the loop.',
     summary: [
-      'Helps patients find wheelchairs suited to their medical profiles with dedicated dashboards for clinicians and vendors.',
-      'Integrates a RAG-powered chatbot for intelligent query handling across role-specific interfaces.',
+      'Role-based platform for patients and vendors: medical-profile matching, filterable catalog, request tracking, and a vendor inventory dashboard.',
+      'Rule-first ranking (association, propulsion, in-stock) via /recommendations with an optional llama.cpp SLM re-rank.',
     ],
     solutions: [
-      'Built a RAG pipeline that retrieves product and medical criteria before answering patient questions.',
-      'Created role-specific dashboards: patients compare, clinicians verify, vendors maintain inventory.',
-      'Wired a FastAPI backend to PostgreSQL with NLP over structured and unstructured product data.',
-      'Wrote retrieval tests to keep answer quality stable as the catalog grows.',
+      'Built rule-first ranking on medical profile (morphology, pathologies, propulsion, habits) with in-stock filtering; optional Qwen2.5-0.5B SLM re-rank that never writes approvals.',
+      'Shipped a FastAPI plus SQLAlchemy 2.0 plus PostgreSQL backend with JWT auth, role guards, chat with KB rebuild, and patient-vendor messaging.',
+      'Built the React 18 plus Vite plus Tailwind plus Radix frontend: catalog with filters, search and pagination, medical record forms, dashboards, cart and wishlist.',
+      'Retired the clinician role cleanly: drop_clinician.sql removes the CLINICIEN tables while keeping Consultation and MedicalEntry history.',
+      'Added an eval_recommend.py recall@3 gate that exits 1 under 0.8, so ranking regressions fail loud.',
     ],
     impact: [
-      'Cut the time-to-shortlist from hours of spec-sheet reading to conversational queries.',
-      'Showed how retrieval-augmented generation fits into a regulated domain with an approval loop.',
+      'Patient choice from the ranking is final (APPROUVE at creation), so there is no approval limbo.',
+      'Vendors get stock alerts, inventory value stats, and an incoming request queue.',
+      'One docker compose up runs the whole stack, including the local SLM.',
     ],
-    stack: ['React', 'FastAPI', 'PostgreSQL', 'RAG', 'NLP'],
+    stack: ['React', 'Vite', 'FastAPI', 'PostgreSQL', 'JWT', 'llama.cpp', 'Docker'],
     links: [
       {
         label: 'GitHub',
         url: 'https://github.com/Bechir-98/Wheel_Match',
       },
     ],
-    image: asset('/projects/wheel-match.svg'),
-    gallery: [
-      asset('/projects/wheel-match/demo-1.svg'),
-      asset('/projects/wheel-match/demo-2.svg'),
-      asset('/projects/wheel-match/demo-3.svg'),
-    ],
-    featured: true,
   },
   {
     id: 'geekshack',
@@ -134,13 +123,6 @@ export const projects: Project[] = [
       'Gave 50+ participants a smooth experience, and the club a repeatable platform for future editions.',
     ],
     stack: ['React', 'Laravel', 'PostgreSQL', 'Redis', 'Docker'],
-    image: asset('/projects/geekshack.svg'),
-    gallery: [
-      asset('/projects/geekshack/demo-1.svg'),
-      asset('/projects/geekshack/demo-2.svg'),
-      asset('/projects/geekshack/demo-3.svg'),
-    ],
-    featured: true,
   },
   {
     id: 'traffici',
@@ -163,65 +145,135 @@ export const projects: Project[] = [
       'Built evaluation harnesses comparing agent policies across congestion levels.',
     ],
     impact: [
-      'Reduced average vehicle wait time versus fixed-cycle baselines in simulation.',
+      'Cut average wait time 23% and lifted throughput 17% versus fixed-cycle baselines in SUMO simulation.',
       'Validated that deep policies generalize better under heavy traffic than tabular Q-Learning.',
     ],
     stack: ['Python', 'PyTorch', 'Reinforcement Learning', 'SUMO'],
-    image: asset('/projects/traffici.svg'),
-    gallery: [
-      asset('/projects/traffici/demo-1.svg'),
-      asset('/projects/traffici/demo-2.svg'),
-      asset('/projects/traffici/demo-3.svg'),
-    ],
   },
   {
     id: 'ai-gate',
     title: 'AI Gate',
-    subtitle: 'Security & Reversible-Anonymization Proxy for LLM Chat',
-    tagline: 'Intercepts prompts, strips PII, blocks injections, forwards to Gemini, restores sensitive data.',
+    subtitle: 'Security and reversible-anonymization proxy for LLM chat traffic',
+    tagline:
+      'Intercepts prompts, strips PII, forwards to your OpenAI-compatible model, restores sensitive data.',
     category: 'ai',
     year: '2026',
     role: 'Full-Stack Developer',
     timeline: '2026 · personal project',
     challenge:
-      'Personal data sent to LLM APIs becomes unrecoverable once a prompt is logged or a model is trained. Teams need AI without ever exposing PII.',
+      'Personal data sent to LLM APIs becomes unrecoverable once a prompt is logged or a model is trained. Teams need AI power against their own models without ever exposing PII, transparently through the clients they already use.',
     summary: [
-      'Security pipeline for LLM chat traffic: PII detection, prompt injection guard, toxicity filter, and custom regex patterns.',
-      'Reversible anonymization vault that swaps PII for tokens before the LLM and restores it on output.',
-      'React + Vite chat UI with session management, audit trail, and Google OAuth with a JWT-secured API.',
+      'OpenAI-compatible gateway: any client talks to /v1/chat/completions with an aig_... key; PII is stripped before the model and restored in the response.',
+      'React + Vite chat UI with session management, audit trail, and a latency/token metrics dashboard behind Google OAuth.',
     ],
     solutions: [
-      'Detected PII with Presidio and GLiNER alongside custom regex patterns for domain-specific entities.',
-      'Built an in-memory vault that tokenizes sensitive values before the request and restores them in the response.',
-      'Added prompt injection and toxicity guards so dangerous or abusive input is blocked before reaching the model.',
-      'Shipped a Dockerized stack: `docker compose up` runs the full proxy and UI on localhost.',
-      'Implemented Google OAuth sign-in with JWT-secured API endpoints and an audit trail of detections with aggregated entity counts.',
+      'Built a security pipeline: GLiNER v2 PII detection (HuggingFace Space) plus Presidio anonymization and user-defined regex patterns, all togglable in-app.',
+      'Implemented an in-memory reversible-anonymization vault: PII becomes tokens before the LLM call and is restored on output with editable entity mappings.',
+      'Shipped the gateway: POST /v1/chat/completions with streaming SSE and GET /v1/models, authenticated by per-service aig_... API keys routed to configured model credentials.',
+      'Backed it with FastAPI and async SQLAlchemy on PostgreSQL: audit log plus per-exchange latency/token telemetry with 30-day retention.',
+      'Dockerized the stack (Postgres, API, Caddy): copy .env.example to .env, docker compose up, open http://localhost.',
     ],
     impact: [
-      'Keeps sensitive data out of prompts and logs while preserving full context through the model call.',
-      'Ships as a self-hosted secure chat proxy that anyone can run with a single command.',
-      'Made every scanner togglable and entity mappings editable in-app, so the pipeline adapts per deployment.',
+      'Any OpenAI SDK client works unchanged: swap base_url and key; anonymization stays transparent to API clients.',
+      'Makes the security cost of every call visible: per-exchange and per-scanner latency on the Metrics page.',
+      'Fully configurable per deployment: scanners, entity mappings, and patterns managed in-app.',
     ],
-    stack: ['React', 'Vite', 'FastAPI', 'Presidio', 'GLiNER', 'Docker', 'Google OAuth', 'Gemini'],
+    stack: ['React', 'Vite', 'FastAPI', 'PostgreSQL', 'Presidio', 'GLiNER', 'Docker', 'Google OAuth'],
     links: [
       {
         label: 'GitHub',
         url: 'https://github.com/Bechir-98/AiGate',
       },
     ],
-    image: asset('/projects/ai-gate.svg'),
-    gallery: [
-      asset('/projects/ai-gate/demo-1.svg'),
-      asset('/projects/ai-gate/demo-2.svg'),
-      asset('/projects/ai-gate/demo-3.svg'),
-    ],
-    featured: true,
   },
+  {
+    id: 'carthvillage',
+    title: 'CarthVillage',
+    subtitle: 'Unified Academic Platform for Carthage University',
+    tagline:
+      'Bringing universities together as a village, uniting academic management, data intelligence, and AI reporting in one green campus.',
+    category: 'hackathon',
+    year: '2026',
+    role: 'Full-Stack Developer',
+    timeline: '2026 · hackathon',
+    challenge:
+      'University systems live in silos: academic records, campus services, and planning data never meet, so staff decide on spreadsheets while sustainability goals stay on paper.',
+    summary: [
+      'Unified academic platform: data catalog, reporting, dashboards, and campus services in one cohesive experience.',
+      'AI layer with assistants, predictive forecasting, automated reports, and natural-language queries over university data.',
+    ],
+    solutions: [
+      'Built the FastAPI backend with uv: API routes, ingest endpoints, AI orchestration services, and background workers.',
+      'Backed user management and secure access with Supabase and extensible workflow integration.',
+      'Shipped a React + Vite + TypeScript frontend with real-time dashboards and collaborative interfaces for staff.',
+      'Added document ingestion pipelines that turn policies and campus data into searchable knowledge for natural-language queries.',
+      'Bundled the platform with its presentation deck and an overview video for the final demo.',
+    ],
+    impact: [
+      'Gave staff one village: new programs, partnerships, and resource optimizations surfaced by an opportunities finder.',
+      'Turned enrollment, resource, and sustainability planning into predictive forecasts instead of spreadsheet guesswork.',
+      'Designed around green campus operations and cross-university collaboration.',
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'FastAPI', 'Supabase', 'AI orchestration'],
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Taha2053/Carthage',
+      },
+    ],
+  },
+  {
+    id: 'defendrag',
+    title: 'DefendRag',
+    subtitle: 'Agentic RAG for AI Security Knowledge Retrieval',
+    tagline:
+      'Hybrid search plus cross-encoder rerank plus LLM generation, answering cybersecurity questions from trusted sources.',
+    category: 'ai',
+    year: '2026',
+    role: 'AI Engineer',
+    timeline: '2026 · personal project',
+    challenge:
+      'Security teams drown in OWASP, MITRE, and NIST documents, while naive RAG hallucinates or retrieves junk. Answers need to come from trusted sources, with citations, not vibes.',
+    summary: [
+      'Agentic RAG over trusted cybersecurity sources: hybrid keyword-plus-vector search, cross-encoder rerank, and LLM generation with cited sources.',
+      'Streamlit Q&A interface plus a built-in eval harness that checks doc recall, key terms, and citations, and exits non-zero on failure.',
+    ],
+    solutions: [
+      'Built a LangGraph agent pipeline (retrieve, cross-encoder rerank, generate) that rescores hybrid results and passes only the top-K to the LLM.',
+      'Combined SQLite FTS5 keyword search with SentenceTransformer vector embeddings for hybrid retrieval.',
+      'Made the LLM pluggable: any OpenAI-compatible API (Ollama, vLLM, OpenAI, Groq with backoff retries on 429s).',
+      'Wrote an eval harness with a golden question set, turning retrieval quality into a repeatable fail-loud metric.',
+      'Kept setup local-first: drop PDFs in data/, run index.py, then streamlit run app.py; models auto-download on first run.',
+    ],
+    impact: [
+      'Every answer ships with its trusted sources instead of hallucinating.',
+      'Runs fully local with Ollama for sensitive security docs that cannot leave the machine.',
+      'Eval gate makes regressions visible before they reach users.',
+    ],
+    stack: ['Python', 'LangGraph', 'Streamlit', 'SQLite FTS5', 'SentenceTransformers', 'CrossEncoder', 'RAG'],
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/Bechir-98/DefendRag',
+      },
+    ],
+    liveUrl: 'https://bechbech.duckdns.org/',
+  },
+] satisfies Omit<Project, 'image' | 'gallery'>[]
+
+const projectOrder = [
+  'ai-gate',
+  'defendrag',
+  'carthvillage',
+  'traffici',
+  'wheel-match',
+  'ma-federation',
+  'geekshack',
 ]
 
-export const featuredProjects = projects
-  .filter((project) => project.featured)
-  .sort((a, b) => (a.id === 'ai-gate' ? -1 : b.id === 'ai-gate' ? 1 : 0))
+export const projects: Project[] = projectData
+  .map(attachProjectMedia)
+  .sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id))
 
 export function getProjectById(id: string | undefined) {
   return projects.find((project) => project.id === id)

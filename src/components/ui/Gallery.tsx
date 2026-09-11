@@ -28,7 +28,7 @@ export function Gallery({ images, title }: GalleryProps) {
   }, [showPrev, showNext])
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-paper/10 bg-ink-soft">
+    <div className="group relative mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-paper/10 bg-ink-soft">
       <div
         className="flex transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${index * 100}%)` }}
@@ -44,7 +44,7 @@ export function Gallery({ images, title }: GalleryProps) {
             <img
               src={src}
               alt={`${title} demo ${i + 1}`}
-              className="aspect-[16/10] w-full object-cover"
+              className="aspect-video w-full object-contain"
             />
             <span className="pointer-events-none absolute bottom-4 left-4 rounded-md bg-ink/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-paper backdrop-blur-sm">
               Demo {String(i + 1).padStart(2, '0')}
