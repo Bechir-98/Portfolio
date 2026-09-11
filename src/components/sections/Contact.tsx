@@ -14,7 +14,8 @@ export function Contact() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    const form = event.currentTarget
+    const data = new FormData(form)
     setStatus('sending')
     try {
       await sendContactMessage({
@@ -22,7 +23,7 @@ export function Contact() {
         email: String(data.get('email')),
         message: String(data.get('message')),
       })
-      event.currentTarget.reset()
+      form.reset()
       setStatus('sent')
     } catch {
       setStatus('error')
